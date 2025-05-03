@@ -7,6 +7,7 @@ This script:
 3. Exports the quantized model to ONNX format for deployment on Raspberry Pi
 
 Usage:
+    FOR TESTING USE THIS:  python model_development/converter_scripts/mct_convert.py
     python model_development/converter_scripts/mct_convert.py --model-path model_development/full_training/run_20250503_045116/best_model.pth --output-dir model_development/edge-optimized-models --data-path data --batch-size 16
 """
 import sys
