@@ -7,10 +7,12 @@ This script:
 3. Exports the quantized model to ONNX format for deployment on Raspberry Pi
 
 Usage:
-    python mct_convert.py --model-path full_training/run_20250503_045116/best_model.pth
+    python model_development/converter_scripts/mct_convert.py --model-path model_development/full_training/run_20250503_045116/best_model.pth --output-dir model_development/edge-optimized-models --data-path data --batch-size 16
 """
-
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import argparse
 import torch
 import numpy as np
@@ -102,11 +104,11 @@ def compare_model_sizes(original_path, quantized_path):
 def main():
     parser = argparse.ArgumentParser(description='Convert model to quantized ONNX using MCT')
     parser.add_argument('--model-path', type=str, 
-                        default='full_training/run_20250503_045116/best_model.pth',
+                        default='model_development/full_training/run_20250503_045116/best_model.pth',
                         help='Path to the trained PyTorch model')
-    parser.add_argument('--data-path', type=str, default='data',
+    parser.add_argument('--data-path', type=str, default='model_development/data',
                         help='Path to data directory for representative dataset')
-    parser.add_argument('--output-dir', type=str, default='optimized_models',
+    parser.add_argument('--output-dir', type=str, default='model_development/optimized_models_mct',
                         help='Directory to save optimized models')
     parser.add_argument('--batch-size', type=int, default=16,
                         help='Batch size for representative dataset')
