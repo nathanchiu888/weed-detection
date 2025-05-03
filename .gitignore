@@ -1,0 +1,6 @@
+environment.yml
+*\__pycache__
+notes.txt
+*.pyc
+*\test_output_fixed
+*class_distribution.png
