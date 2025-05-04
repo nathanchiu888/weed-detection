@@ -19,7 +19,7 @@ from datetime import datetime
 
 
 # Configure the serial connection
-ser = serial.Serial('/dev/ttyAMA0', 115200, timeout=2)
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=2)
 
 # Ensure the serial port is open
 if ser.is_open:
@@ -144,9 +144,9 @@ def draw_classification_results(request: CompletedRequest, results: List[Classif
         # Get current time in seconds since the epoch
         timestamp_seconds = time.time()
         #print("Timestamp (seconds):", timestamp_seconds)
-        if timestamp_seconds - timestamp_seconds_prev > 5.0:
+        if timestamp_seconds - timestamp_seconds_prev > 3.0:
             # Send the GET_GPS message followed by a newline if requi>
-            ser.write(b"*")  # Use b'' to send bytes
+            ser.write(b"GET_GPS")  # Use b'' to send bytes
             timestamp_seconds_prev = timestamp_seconds
             # Read the response (adjust the number of bytes based on >
             response = ser.readline()  # Read a line from the serial
@@ -160,7 +160,7 @@ def draw_classification_results(request: CompletedRequest, results: List[Classif
 
 
         # Draw GPS Coordinate at the bottom
-        text = f"Lat:{lat} Lon: {lon:.3f} Time:{timestamp}"
+        text = f"Lat:{lat:.6f} Lon: {lon:.6f} Time:{timestamp}"
         # Calculate text size and position
         (text_width, text_height), baseline = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
         text_x = text_left + 5

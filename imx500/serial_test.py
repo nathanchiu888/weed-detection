@@ -2,7 +2,7 @@ import serial
 import time
 
 # Configure the serial connection
-ser = serial.Serial('/dev/ttyAMA0', 115200, timeout=2)  # Adjust the port and baudrate as necessary
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=2)  # Adjust the port and baudrate as necessary
 
 # Ensure the serial port is open
 if ser.is_open:
@@ -13,7 +13,7 @@ else:
 try:
     while True:
         # Send the GET_GPS message followed by a newline if required
-        ser.write(b"GET_GPS\n")  # Use b'' to send bytes
+        ser.write(b"GET_GPS")  # Use b'' to send bytes
 
         # Wait for a moment to allow the device to respond
         time.sleep(1)
