@@ -14,16 +14,21 @@ import torchvision.transforms as transforms
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-from models.tinyresvit import TinyResViT
+# from models.tinyresvit import TinyResViT
 import onnxruntime
 from onnxruntime.quantization import quantize_dynamic, QuantType
 
 
 def load_model(model_path):
     """Load a trained PyTorch model"""
-    model = TinyResViT(num_classes=2)
-    checkpoint = torch.load(model_path, map_location='cpu')
+    if 0:
+        model = TinyResViT(num_classes=2)
+        checkpoint = torch.load(model_path, map_location='cpu')
+    else:
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=False)
+        checkpoint = torch.load(model_path, map_location='cpu')
     
+        
     # problem with format
     if 'model_state_dict' in checkpoint:
         model.load_state_dict(checkpoint['model_state_dict'])
@@ -135,7 +140,7 @@ def benchmark_inference(model, quantized_model, input_shape=(1, 3, 224, 224), nu
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert trained model to optimized formats')
     parser.add_argument('--model-path', type=str, 
-                        default='model_development/full_training/run_20250503_045116/best_model.pth',
+                        default='output/run_20250503_165955/best_model.pth',
                         help='Path to the trained model')
     parser.add_argument('--output-dir', type=str, default='optimized_models',
                         help='Directory to save optimized models')

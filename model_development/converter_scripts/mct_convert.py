@@ -17,7 +17,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import argparse
 import torch
 import numpy as np
-from models.tinyresvit import TinyResViT
+# from models.tinyresvit import TinyResViT
+from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 from data.dataset import WeedDataset
 from torch.utils.data import DataLoader
 import model_compression_toolkit as mct
@@ -27,7 +28,9 @@ MCT_AVAILABLE = True
 
 def load_model(model_path):
     """Load a trained PyTorch model"""
-    model = TinyResViT(num_classes=2)
+    # model = TinyResViT(num_classes=2)
+    #model = mobilenet_v2()
+    model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=False)
     checkpoint = torch.load(model_path, map_location='cpu')
     
     if 'model_state_dict' in checkpoint:
@@ -105,7 +108,7 @@ def compare_model_sizes(original_path, quantized_path):
 def main():
     parser = argparse.ArgumentParser(description='Convert model to quantized ONNX using MCT')
     parser.add_argument('--model-path', type=str, 
-                        default='model_development/full_training/run_20250503_045116/best_model.pth',
+                        default='output/run_20250503_170330/best_model.pth',
                         help='Path to the trained PyTorch model')
     parser.add_argument('--data-path', type=str, default='model_development/data',
                         help='Path to data directory for representative dataset')

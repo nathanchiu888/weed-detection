@@ -130,12 +130,14 @@ def main():
     # device, model, optimizer and criterion
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Using device: {device}")
-    
-    model = TinyResViT(num_classes=args.num_classes).to(device)
+    if 0:
+        model = TinyResViT(num_classes=args.num_classes).to(device)
+    else:
+        model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     criterion = nn.CrossEntropyLoss()
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='max', factor=0.5, patience=3, verbose=True
+        optimizer, mode='max', factor=0.5, patience=3
     )
     
     # Training loop

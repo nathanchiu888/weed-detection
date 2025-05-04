@@ -4,3 +4,5 @@ notes.txt
 *.pyc
 *class_distribution.png
 *\mobile-net-output
+.env/*
+output/*
