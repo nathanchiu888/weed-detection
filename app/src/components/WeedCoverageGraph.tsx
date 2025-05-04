@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Calendar } from 'lucide-react';
 
 interface DataPoint {
@@ -14,11 +14,12 @@ interface WeedCoverageGraphProps {
 }
 
 const WeedCoverageGraph: React.FC<WeedCoverageGraphProps> = ({ fieldName, data }) => {
+  const svgRef = useRef<SVGSVGElement>(null);
   const [hoveredPoint, setHoveredPoint] = useState<{
     dataPoint: DataPoint;
     type: 'grass' | 'broadleaf';
-    x: number;
-    y: number;
+    clientX: number;
+    clientY: number;
   } | null>(null);
 
   const sortedData = [...data].sort((a, b) => a.timestamp - b.timestamp);
@@ -79,15 +80,15 @@ const WeedCoverageGraph: React.FC<WeedCoverageGraphProps> = ({ fieldName, data }
     index: number,
     event: React.MouseEvent
   ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    // Get the current mouse position in client coordinates
+    const clientX = event.clientX;
+    const clientY = event.clientY;
     
     setHoveredPoint({
       dataPoint,
       type,
-      x,
-      y
+      clientX,
+      clientY
     });
   };
 
@@ -96,7 +97,7 @@ const WeedCoverageGraph: React.FC<WeedCoverageGraphProps> = ({ fieldName, data }
   };
 
   return (
-    <div className="p-5 bg-zinc-900 rounded-lg border border-zinc-800 h-full">
+    <div className="p-5 bg-zinc-900 rounded-lg border border-zinc-800 h-full relative">
       <h2 className="text-lg font-medium mb-2">Weed Coverage Over Time</h2>
       <div className="flex items-center gap-4 mb-4">
         {/* Legend items */}
@@ -111,7 +112,7 @@ const WeedCoverageGraph: React.FC<WeedCoverageGraphProps> = ({ fieldName, data }
       </div>
       
       <div className="relative">
-        <svg width={width} height={height} className="mx-auto">
+        <svg ref={svgRef} width={width} height={height} className="mx-auto">
           {/* Y-axis line */}
           <line 
             x1={padding.left} 
@@ -263,38 +264,40 @@ const WeedCoverageGraph: React.FC<WeedCoverageGraphProps> = ({ fieldName, data }
             </React.Fragment>
           ))}
         </svg>
-        
-        {/* Tooltip */}
-        {hoveredPoint && (
-          <div 
-            className="absolute bg-zinc-800 border border-zinc-700 rounded-md p-3 shadow-lg z-20"
-            style={{ 
-              left: `${hoveredPoint.x + 10}px`, 
-              top: `${hoveredPoint.y - 60}px`,
-            }}
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <Calendar size={14} />
-              <span className="font-medium">{hoveredPoint.dataPoint.date}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div 
-                className={`w-2 h-2 rounded-full ${
-                  hoveredPoint.type === 'grass' ? 'bg-green-500' : 'bg-blue-500'
-                }`}
-              ></div>
-              <span>
-                {hoveredPoint.type === 'grass' ? 'Grass' : 'Broadleaf'}: 
-                <span className="font-medium ml-1">
-                  {hoveredPoint.type === 'grass' 
-                    ? hoveredPoint.dataPoint.grassCoverage 
-                    : hoveredPoint.dataPoint.broadleafCoverage}%
-                </span>
-              </span>
-            </div>
-          </div>
-        )}
       </div>
+      
+      {/* Tooltip - now positioned using fixed positioning relative to viewport */}
+      {hoveredPoint && (
+        <div 
+          className="fixed bg-zinc-800 border border-zinc-700 rounded-md p-3 shadow-lg z-30 pointer-events-none"
+          style={{ 
+            left: `${hoveredPoint.clientX + 10}px`, 
+            top: `${hoveredPoint.clientY - 70}px`,
+            transform: 'translate(0, 0)', // Overrides any other transform
+            maxWidth: '200px'
+          }}
+        >
+          <div className="flex items-center gap-2 mb-1">
+            <Calendar size={14} />
+            <span className="font-medium">{hoveredPoint.dataPoint.date}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div 
+              className={`w-2 h-2 rounded-full ${
+                hoveredPoint.type === 'grass' ? 'bg-green-500' : 'bg-blue-500'
+              }`}
+            ></div>
+            <span>
+              {hoveredPoint.type === 'grass' ? 'Grass' : 'Broadleaf'}: 
+              <span className="font-medium ml-1">
+                {hoveredPoint.type === 'grass' 
+                  ? hoveredPoint.dataPoint.grassCoverage 
+                  : hoveredPoint.dataPoint.broadleafCoverage}%
+              </span>
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
