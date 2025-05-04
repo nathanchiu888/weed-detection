@@ -1,5 +1,80 @@
-import React, { useState } from 'react';
-import { Maximize, RotateCcw, Info, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+// Update imports to include additional icons for new buttons
+import { Maximize, RotateCcw, Info, ChevronDown, MapPin, X, Download, FileSpreadsheet, Settings } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, useMap, Polyline } from 'react-leaflet';
+import L from 'leaflet';
+
+// Fix for default marker icons in Leaflet with webpack/vite
+// This is needed because the default markers reference image files that aren't properly bundled
+// Creating a simple div-based marker icon instead
+const createMarkerIcon = (color: string) => {
+  return L.divIcon({
+    className: 'custom-div-icon',
+    html: `<div style="background-color: ${color}; opacity: 0.7;" class="marker-pin"></div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+  });
+};
+
+// Component to handle map view updates when field changes
+const MapUpdater = ({ center, zoom, disableInteraction }: { center: [number, number], zoom: number, disableInteraction: boolean }) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    // Set view to the specified center and zoom
+    map.setView(center, zoom);
+    
+    // DISABLE INTERACTION: This section disables map dragging and zooming
+    // To re-enable map interaction, set disableInteraction to false or remove this section
+    if (disableInteraction) {
+      map.dragging.disable();
+      map.touchZoom.disable();
+      map.doubleClickZoom.disable();
+      map.scrollWheelZoom.disable();
+      map.boxZoom.disable();
+      map.keyboard.disable();
+      //if (map.tap) map.tap.disable();
+    } else {
+      // This code re-enables all interactions if disableInteraction is false
+      map.dragging.enable();
+      map.touchZoom.enable();
+      map.doubleClickZoom.enable();
+      map.scrollWheelZoom.enable();
+      map.boxZoom.enable();
+      map.keyboard.enable();
+      //if (map.tap) map.tap.enable();
+    }
+  }, [map, center, zoom, disableInteraction]);
+  
+  return null;
+};
+
+// New component for placing pins on the map
+const PinPlacer = ({ 
+  addPin
+}: { 
+  pins: [number, number][]; 
+  addPin: (latlng: [number, number]) => void; 
+  center: [number, number];
+}) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    const handleClick = (e: any) => {
+      // Add a new pin when the map is clicked
+      const { lat, lng } = e.latlng;
+      addPin([lat, lng]);
+    };
+
+    map.on('click', handleClick);
+    
+    return () => {
+      map.off('click', handleClick);
+    };
+  }, [map, addPin]);
+  
+  return null;
+};
 
 interface HeatmapCell {
   value: number;
@@ -12,21 +87,67 @@ interface HeatmapProps {
   fieldName: string;
 }
 
+interface FieldInfo {
+  center: [number, number]; // [latitude, longitude]
+  zoom: number;
+}
+
 const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
   const [weedType, setWeedType] = useState<'grass' | 'broadleaf'>('grass');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState<HeatmapCell | null>(null);
+  
+  // New state for route planning dialog
+  const [routePlanningOpen, setRoutePlanningOpen] = useState(false);
+  const [routePins, setRoutePins] = useState<[number, number][]>([]);
+  
+  // Define specific locations and zoom levels for each field
+  const fieldLocations: Record<string, FieldInfo> = {
+    'Kearney': { 
+      center: [38.519965, -121.782626],
+      zoom: 35 
+    },
+    'Olive': { 
+      center: [38.512927, -121.855225],
+      zoom: 17 
+    },
+    'West Barn': { 
+      center: [38.505609, -121.878474],
+      zoom: 19 
+    }
+  };
+  
+  // Set default location
+  const defaultLocation: FieldInfo = { 
+    center: [40.4213, -86.9143],
+    zoom: 18
+  };
+  
+  // Get field info or use default if not found
+  const fieldInfo = fieldLocations[fieldName] || defaultLocation;
+  
+  const [mapCenter, setMapCenter] = useState<[number, number]>(fieldInfo.center);
+  const [mapZoom, setMapZoom] = useState<number>(fieldInfo.zoom);
+
+  // DISABLE MAP INTERACTION FLAG
+  // Set this to false if you want to allow users to pan and zoom the map
+  // Set to true to lock the map to the initial field location view
+  const disableMapInteraction = true;
 
   // Generate mock data for different field names and weed types
   const getMockData = (field: string, type: 'grass' | 'broadleaf') => {
     // Base coordinates for each field (these would be different for each real field)
     const baseCoords = {
-      'Kearney': { lat: 40.4213, long: -86.9143 },
-      'Olive': { lat: 40.3856, long: -86.8723 },
-      'West Barn': { lat: 40.4052, long: -86.9367 },
+      'Kearney': { lat: fieldLocations['Kearney'].center[0], long: fieldLocations['Kearney'].center[1] },
+      'Olive': { lat: fieldLocations['Olive'].center[0], long: fieldLocations['Olive'].center[1] },
+      'West Barn': { lat: fieldLocations['West Barn'].center[0], long: fieldLocations['West Barn'].center[1] },
     };
     
     const baseCoord = baseCoords[field as keyof typeof baseCoords] || baseCoords.Kearney;
+    
+    // Update map center and zoom when field changes
+    setMapCenter([baseCoord.lat, baseCoord.long]);
+    setMapZoom(fieldLocations[field]?.zoom || defaultLocation.zoom);
     
     // Generate a 12x12 grid with different patterns for each field and weed type
     const grid: HeatmapCell[][] = Array(12).fill(0).map((_, rowIndex) => 
@@ -119,14 +240,35 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
   const [heatmapData, setHeatmapData] = useState(() => getMockData(fieldName, weedType));
 
   // Update data when field name or weed type changes
-  React.useEffect(() => {
+  useEffect(() => {
     setHeatmapData(getMockData(fieldName, weedType));
   }, [fieldName, weedType]);
 
   const getColorClass = (confidence: number) => {
-    if (confidence < 50) return 'bg-green-500';
-    if (confidence < 85) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (confidence < 50) return 'bg-green-500 bg-opacity-65';
+    if (confidence < 85) return 'bg-yellow-500 bg-opacity-65';
+    return 'bg-red-500 bg-opacity-65';
+  };
+
+  const getColorValue = (confidence: number) => {
+    if (confidence < 50) return 'rgba(34, 197, 94, 0.4)'; // lighter green with transparency
+    if (confidence < 85) return 'rgba(234, 179, 8, 0.4)';  // lighter yellow with transparency
+    return 'rgba(239, 68, 68, 0.4)'; // lighter red with transparency
+  };
+
+  // Function to add a pin to the route
+  const addRoutePin = (latlng: [number, number]) => {
+    setRoutePins(prev => [...prev, latlng]);
+  };
+  
+  // Function to remove a pin from the route
+  const removeRoutePin = (index: number) => {
+    setRoutePins(prev => prev.filter((_, i) => i !== index));
+  };
+  
+  // Function to clear all route pins
+  const clearRoutePins = () => {
+    setRoutePins([]);
   };
 
   return (
@@ -147,30 +289,121 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
       </div>
       
       <div className="flex flex-row gap-6">
-        {/* Left side - Heatmap - Larger size */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="flex items-center justify-center">
-            {/* <div className="mr-2 -rotate-90 text-xs text-zinc-400">Field Length (m)</div> */}
-            
-            {/* Increased cell size from w-6/h-6 to w-8/h-8 */}
-            <div className="grid grid-cols-12 gap-1">
-              {heatmapData.map((row, rowIndex) => (
-                <React.Fragment key={`row-${rowIndex}`}>
-                  {row.map((cell, colIndex) => (
-                    <div
-                      key={`cell-${rowIndex}-${colIndex}`}
-                      className={`w-8 h-8 ${getColorClass(cell.confidence)} rounded-sm transition-colors hover:opacity-80 cursor-pointer`}
-                      onClick={() => setSelectedCell(cell)}
-                    />
-                  ))}
-                </React.Fragment>
-              ))}
+        {/* Left side - Map with Heatmap overlay */}
+        <div className="flex-1 flex flex-col">
+          <div className="flex items-center justify-center w-full h-[350px] relative">
+            {/* Map Container - Should be BEHIND the grid, lowest z-index */}
+            <div className="absolute inset-0 z-0">
+              <MapContainer 
+                center={mapCenter} 
+                zoom={mapZoom} 
+                style={{ height: '100%', width: '100%', borderRadius: '0.25rem' }}
+                zoomControl={false} /* This hides the zoom controls. Set to true to show them */
+                attributionControl={false}
+                /* NOTE: The dragging/zooming behavior is controlled by the MapUpdater component below */
+              >
+                {/* MapUpdater controls map position and interaction */}
+                <MapUpdater 
+                  center={mapCenter} 
+                  zoom={mapZoom} 
+                  disableInteraction={disableMapInteraction} /* CONTROL FLAG for map interaction */
+                />
+                
+                {/* ESRI World Imagery satellite layer */}
+                <TileLayer
+                  attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
+                  url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                />
+              </MapContainer>
             </div>
+            
+            {/* Semi-transparent overlay only in the middle */}
+            <div className="absolute z-10 bg-black bg-opacity-10 pointer-events-none"
+                style={{
+                  width: '60%',
+                  height: '90%',
+                  left: '20%',
+                  top: '5%'
+                }}>
+            </div>
+            
+            {/* Heatmap Grid - Now only covers 60% width and 90% height, centered */}
+            <div className="absolute z-20"
+                 style={{
+                   width: '60%',
+                   height: '90%',
+                   left: '20%',
+                   top: '5%'
+                 }}>
+              <div className="grid grid-cols-12 gap-1 w-full h-full">
+                {heatmapData.map((row, rowIndex) => (
+                  <React.Fragment key={`row-${rowIndex}`}>
+                    {row.map((cell, colIndex) => (
+                      <div
+                        key={`cell-${rowIndex}-${colIndex}`}
+                        className={`w-full h-full ${getColorClass(cell.confidence)} rounded-sm transition-colors hover:brightness-110 cursor-pointer`}
+                        onClick={() => setSelectedCell(cell)}
+                      />
+                    ))}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+            
+            {/* Map border frame to match the component style */}
+            <div className="absolute inset-0 border border-zinc-700 rounded-md pointer-events-none"></div>
           </div>
           
-          {/* <div className="flex justify-center mt-2">
-            <div className="text-xs text-zinc-400">Field Width (m)</div>
-          </div> */}
+          {/* Enhanced button row with multiple options */}
+          <div className="mt-3 flex justify-center gap-3">
+            
+            <button 
+              className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+            >
+              <Download size={16} />
+              <span>Export Data</span>
+            </button>
+            
+            <div className="group relative">
+              <button 
+                className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+              >
+                <Settings size={16} />
+                <span>View Options</span>
+              </button>
+              
+              <div className="absolute top-full left-0 mt-1 hidden group-hover:block bg-zinc-800 rounded-md border border-zinc-700 shadow-lg z-10">
+                <div className="py-1 min-w-[160px]">
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-green-500"></span>
+                    <span>Show Low</span>
+                  </button>
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-yellow-500"></span>
+                    <span>Show Medium</span>
+                  </button>
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-red-500"></span>
+                    <span>Show High</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <button 
+              className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+            >
+              <FileSpreadsheet size={16} />
+              <span>Reports</span>
+            </button>
+            <button 
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md flex items-center gap-2 transition-colors"
+              onClick={() => setRoutePlanningOpen(true)}
+            >
+              <MapPin size={16} />
+              <span>Plan Route</span>
+            </button>
+          </div>
         </div>
         
         {/* Right side - Controls and Info */}
@@ -257,6 +490,151 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Route Planning Dialog */}
+      {routePlanningOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+          <div className="w-4/5 max-w-4xl bg-zinc-900 rounded-lg border border-zinc-800 overflow-hidden flex flex-col">
+            {/* Dialog header */}
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+              <h3 className="text-lg font-medium">Plan Treatment Route</h3>
+              <button 
+                className="p-1.5 rounded hover:bg-zinc-800 transition-colors"
+                onClick={() => {
+                  setRoutePlanningOpen(false);
+                  setRoutePins([]);
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            {/* Dialog content */}
+            <div className="p-6 flex gap-6">
+              {/* Map area */}
+              <div className="flex-1 h-[500px] relative">
+                <MapContainer 
+                  center={mapCenter} 
+                  zoom={mapZoom} 
+                  style={{ height: '100%', width: '100%', borderRadius: '0.25rem' }}
+                  zoomControl={true}
+                >
+                  {/* ESRI World Imagery satellite layer */}
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
+                    url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                  />
+                  
+                  {/* Pin placement handler */}
+                  <PinPlacer 
+                    pins={routePins} 
+                    addPin={addRoutePin} 
+                    center={mapCenter} 
+                  />
+                  
+                  {/* Display markers for each pin */}
+                  {routePins.map((pin, index) => (
+                    <Marker
+                      key={`pin-${index}`}
+                      position={pin}
+                      icon={L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `
+                          <div style="
+                            background-color: #3b82f6; 
+                            width: 32px; 
+                            height: 32px; 
+                            border-radius: 16px; 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center;
+                            color: white;
+                            font-weight: bold;
+                            font-size: 12px;
+                            border: 2px solid white;
+                          ">${index + 1}</div>
+                        `,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16]
+                      })}
+                    />
+                  ))}
+                  
+                  {/* Polyline connecting the pins */}
+                  {routePins.length > 1 && (
+                    <Polyline 
+                      positions={routePins} 
+                      color="#3b82f6" 
+                      weight={4}
+                      opacity={0.7}
+                    />
+                  )}
+                </MapContainer>
+              </div>
+              
+              {/* Side panel with controls and pin list */}
+              <div className="w-72 flex flex-col">
+                <div className="mb-5">
+                  <h4 className="text-md font-medium mb-2">Instructions</h4>
+                  <p className="text-sm text-zinc-400">Click on the map to place pins and create a route. The pins will be connected in the order they are placed.</p>
+                </div>
+                
+                <div className="mb-5">
+                  <h4 className="text-md font-medium mb-2">Route Points</h4>
+                  {routePins.length === 0 ? (
+                    <p className="text-sm text-zinc-500 italic">No points added yet</p>
+                  ) : (
+                    <div className="max-h-60 overflow-y-auto pr-2">
+                      {routePins.map((pin, index) => (
+                        <div 
+                          key={`pin-info-${index}`}
+                          className="flex items-center justify-between mb-2 p-2 bg-zinc-800 rounded-md"
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="bg-blue-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium">
+                              {index + 1}
+                            </div>
+                            <span className="text-sm">
+                              {pin[0].toFixed(6)}, {pin[1].toFixed(6)}
+                            </span>
+                          </div>
+                          <button
+                            className="text-zinc-400 hover:text-red-500 transition-colors"
+                            onClick={() => removeRoutePin(index)}
+                          >
+                            <X size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex gap-3 mt-5">
+                  <button
+                    className="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors"
+                    onClick={clearRoutePins}
+                  >
+                    Clear All
+                  </button>
+                  <button
+                    className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                    onClick={() => setRoutePlanningOpen(false)}
+                    disabled={routePins.length < 2}
+                  >
+                    Save Route
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Add attribution in a cleaner way */}
+      <div className="text-xs text-zinc-500 mt-2 text-right">
+        Imagery &copy; <a href="https://www.esri.com/" className="hover:text-zinc-300">Esri</a>
       </div>
     </div>
   );
