@@ -6,7 +6,21 @@ import random
 from PIL import Image
 from torch.utils.data import Dataset, random_split
 from torchvision import transforms
+import torch
 
+# Custom random blur transform
+class RandomGaussianBlur(object):
+    def __init__(self, p=0.5, kernel_size=5, sigma=(0.1, 2.0)):
+        self.p = p
+        self.kernel_size = kernel_size
+        self.sigma = sigma
+        self.blur = transforms.GaussianBlur(kernel_size, sigma)
+        
+    def __call__(self, img):
+        if torch.rand(1).item() < self.p:
+            return self.blur(img)
+        return img
+    
 class WeedDataset(Dataset):
     def __init__(self, root_dir, split='train', img_size=224, val_split=0.2, seed=42):
         """
@@ -64,6 +78,7 @@ class WeedDataset(Dataset):
                 transforms.RandomVerticalFlip(),
                 transforms.RandomRotation(30),
                 transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.1, hue=0.1),
+                RandomGaussianBlur(p=0.5),  # Apply blur randomly with 50% probability
                 transforms.ToTensor(),
                 transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
             ])

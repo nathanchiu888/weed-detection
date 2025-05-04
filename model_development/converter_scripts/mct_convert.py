@@ -29,8 +29,8 @@ MCT_AVAILABLE = True
 def load_model(model_path):
     """Load a trained PyTorch model"""
     # model = TinyResViT(num_classes=2)
-    #model = mobilenet_v2()
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=False)
+    model = mobilenet_v2(num_classes=2)
+    #model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=False)
     checkpoint = torch.load(model_path, map_location='cpu')
     
     if 'model_state_dict' in checkpoint:

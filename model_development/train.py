@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from data.dataset import WeedDataset
 from models.tinyresvit import TinyResViT
+from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 from utils import accuracy
 
 
@@ -133,7 +134,9 @@ def main():
     if 0:
         model = TinyResViT(num_classes=args.num_classes).to(device)
     else:
-        model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True).to(device)
+        #model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True).to(device)
+        model = mobilenet_v2(num_classes=2).to(device)
+        
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     criterion = nn.CrossEntropyLoss()
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
