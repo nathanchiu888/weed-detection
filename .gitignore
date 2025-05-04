@@ -1,4 +1,10 @@
 environment.yml
+model_development/__pycache__/
+model_development/class_distribution.png
+model_development/data/__pycache__/
+model_development/mobile-net/
+model_development/models/__pycache__/
+notes.txt
 *\__pycache__
 notes.txt
 *.pyc
