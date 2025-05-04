@@ -1,3 +1,0 @@
-torch>=1.12
-torchvision
-pillow

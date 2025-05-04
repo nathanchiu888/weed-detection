@@ -5,3 +5,10 @@ model_development/data/__pycache__/
 model_development/mobile-net/
 model_development/models/__pycache__/
 notes.txt
+*\__pycache__
+notes.txt
+*.pyc
+*class_distribution.png
+*\mobile-net-output
+.env/*
+output/*
