@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Maximize, RotateCcw, Info, ChevronDown } from 'lucide-react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+// Update imports to include additional icons for new buttons
+import { Maximize, RotateCcw, Info, ChevronDown, MapPin, X, Download, FileSpreadsheet, Settings } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, useMap, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 
 // Fix for default marker icons in Leaflet with webpack/vite
@@ -48,6 +49,33 @@ const MapUpdater = ({ center, zoom, disableInteraction }: { center: [number, num
   return null;
 };
 
+// New component for placing pins on the map
+const PinPlacer = ({ 
+  addPin
+}: { 
+  pins: [number, number][]; 
+  addPin: (latlng: [number, number]) => void; 
+  center: [number, number];
+}) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    const handleClick = (e: any) => {
+      // Add a new pin when the map is clicked
+      const { lat, lng } = e.latlng;
+      addPin([lat, lng]);
+    };
+
+    map.on('click', handleClick);
+    
+    return () => {
+      map.off('click', handleClick);
+    };
+  }, [map, addPin]);
+  
+  return null;
+};
+
 interface HeatmapCell {
   value: number;
   lat: string;
@@ -68,6 +96,10 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
   const [weedType, setWeedType] = useState<'grass' | 'broadleaf'>('grass');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCell, setSelectedCell] = useState<HeatmapCell | null>(null);
+  
+  // New state for route planning dialog
+  const [routePlanningOpen, setRoutePlanningOpen] = useState(false);
+  const [routePins, setRoutePins] = useState<[number, number][]>([]);
   
   // Define specific locations and zoom levels for each field
   const fieldLocations: Record<string, FieldInfo> = {
@@ -224,6 +256,21 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
     return 'rgba(239, 68, 68, 0.4)'; // lighter red with transparency
   };
 
+  // Function to add a pin to the route
+  const addRoutePin = (latlng: [number, number]) => {
+    setRoutePins(prev => [...prev, latlng]);
+  };
+  
+  // Function to remove a pin from the route
+  const removeRoutePin = (index: number) => {
+    setRoutePins(prev => prev.filter((_, i) => i !== index));
+  };
+  
+  // Function to clear all route pins
+  const clearRoutePins = () => {
+    setRoutePins([]);
+  };
+
   return (
     <div className="p-5 bg-zinc-900 rounded-lg border border-zinc-800">
       <div className="flex justify-between items-center mb-4">
@@ -243,7 +290,7 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
       
       <div className="flex flex-row gap-6">
         {/* Left side - Map with Heatmap overlay */}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex flex-col">
           <div className="flex items-center justify-center w-full h-[350px] relative">
             {/* Map Container - Should be BEHIND the grid, lowest z-index */}
             <div className="absolute inset-0 z-0">
@@ -305,6 +352,57 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
             
             {/* Map border frame to match the component style */}
             <div className="absolute inset-0 border border-zinc-700 rounded-md pointer-events-none"></div>
+          </div>
+          
+          {/* Enhanced button row with multiple options */}
+          <div className="mt-3 flex justify-center gap-3">
+            
+            <button 
+              className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+            >
+              <Download size={16} />
+              <span>Export Data</span>
+            </button>
+            
+            <div className="group relative">
+              <button 
+                className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+              >
+                <Settings size={16} />
+                <span>View Options</span>
+              </button>
+              
+              <div className="absolute top-full left-0 mt-1 hidden group-hover:block bg-zinc-800 rounded-md border border-zinc-700 shadow-lg z-10">
+                <div className="py-1 min-w-[160px]">
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-green-500"></span>
+                    <span>Show Low</span>
+                  </button>
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-yellow-500"></span>
+                    <span>Show Medium</span>
+                  </button>
+                  <button className="w-full px-4 py-2 text-left hover:bg-zinc-700 transition-colors text-sm flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-sm bg-red-500"></span>
+                    <span>Show High</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <button 
+              className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md flex items-center gap-2 transition-colors"
+            >
+              <FileSpreadsheet size={16} />
+              <span>Reports</span>
+            </button>
+            <button 
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md flex items-center gap-2 transition-colors"
+              onClick={() => setRoutePlanningOpen(true)}
+            >
+              <MapPin size={16} />
+              <span>Plan Route</span>
+            </button>
           </div>
         </div>
         
@@ -394,19 +492,145 @@ const WeedHeatmap: React.FC<HeatmapProps> = ({ fieldName }) => {
         </div>
       </div>
       
-      {/* Add a CSS class for the markers */}
-      {/* <style jsx>{`
-        .marker-pin {
-          width: 30px;
-          height: 30px;
-          border-radius: 50% 50% 50% 50%;
-          transform: rotate(45deg);
-        }
-        .custom-div-icon {
-          background: transparent;
-          border: none;
-        }
-      `}</style> */}
+      {/* Route Planning Dialog */}
+      {routePlanningOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+          <div className="w-4/5 max-w-4xl bg-zinc-900 rounded-lg border border-zinc-800 overflow-hidden flex flex-col">
+            {/* Dialog header */}
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center">
+              <h3 className="text-lg font-medium">Plan Treatment Route</h3>
+              <button 
+                className="p-1.5 rounded hover:bg-zinc-800 transition-colors"
+                onClick={() => {
+                  setRoutePlanningOpen(false);
+                  setRoutePins([]);
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            {/* Dialog content */}
+            <div className="p-6 flex gap-6">
+              {/* Map area */}
+              <div className="flex-1 h-[500px] relative">
+                <MapContainer 
+                  center={mapCenter} 
+                  zoom={mapZoom} 
+                  style={{ height: '100%', width: '100%', borderRadius: '0.25rem' }}
+                  zoomControl={true}
+                >
+                  {/* ESRI World Imagery satellite layer */}
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.esri.com/">Esri</a>'
+                    url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                  />
+                  
+                  {/* Pin placement handler */}
+                  <PinPlacer 
+                    pins={routePins} 
+                    addPin={addRoutePin} 
+                    center={mapCenter} 
+                  />
+                  
+                  {/* Display markers for each pin */}
+                  {routePins.map((pin, index) => (
+                    <Marker
+                      key={`pin-${index}`}
+                      position={pin}
+                      icon={L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `
+                          <div style="
+                            background-color: #3b82f6; 
+                            width: 32px; 
+                            height: 32px; 
+                            border-radius: 16px; 
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center;
+                            color: white;
+                            font-weight: bold;
+                            font-size: 12px;
+                            border: 2px solid white;
+                          ">${index + 1}</div>
+                        `,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16]
+                      })}
+                    />
+                  ))}
+                  
+                  {/* Polyline connecting the pins */}
+                  {routePins.length > 1 && (
+                    <Polyline 
+                      positions={routePins} 
+                      color="#3b82f6" 
+                      weight={4}
+                      opacity={0.7}
+                    />
+                  )}
+                </MapContainer>
+              </div>
+              
+              {/* Side panel with controls and pin list */}
+              <div className="w-72 flex flex-col">
+                <div className="mb-5">
+                  <h4 className="text-md font-medium mb-2">Instructions</h4>
+                  <p className="text-sm text-zinc-400">Click on the map to place pins and create a route. The pins will be connected in the order they are placed.</p>
+                </div>
+                
+                <div className="mb-5">
+                  <h4 className="text-md font-medium mb-2">Route Points</h4>
+                  {routePins.length === 0 ? (
+                    <p className="text-sm text-zinc-500 italic">No points added yet</p>
+                  ) : (
+                    <div className="max-h-60 overflow-y-auto pr-2">
+                      {routePins.map((pin, index) => (
+                        <div 
+                          key={`pin-info-${index}`}
+                          className="flex items-center justify-between mb-2 p-2 bg-zinc-800 rounded-md"
+                        >
+                          <div className="flex items-center gap-2">
+                            <div className="bg-blue-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium">
+                              {index + 1}
+                            </div>
+                            <span className="text-sm">
+                              {pin[0].toFixed(6)}, {pin[1].toFixed(6)}
+                            </span>
+                          </div>
+                          <button
+                            className="text-zinc-400 hover:text-red-500 transition-colors"
+                            onClick={() => removeRoutePin(index)}
+                          >
+                            <X size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex gap-3 mt-5">
+                  <button
+                    className="flex-1 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors"
+                    onClick={clearRoutePins}
+                  >
+                    Clear All
+                  </button>
+                  <button
+                    className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+                    onClick={() => setRoutePlanningOpen(false)}
+                    disabled={routePins.length < 2}
+                  >
+                    Save Route
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Add attribution in a cleaner way */}
       <div className="text-xs text-zinc-500 mt-2 text-right">
