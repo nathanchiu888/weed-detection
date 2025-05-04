@@ -72,24 +72,30 @@ def visualize_class_distribution(dataset, class_names):
 def main():
     parser = argparse.ArgumentParser(description='Prepare and analyze weed detection dataset')
     parser.add_argument('--data-dir', type=str, default='model_development/data',
-                        help='Path to data directory containing Broadleafs and Grasses folders')
+                        help='Path to data directory containing Broadleafs, Grasses, and Soil folders')
     parser.add_argument('--batch-size', type=int, default=16, help='Batch size for visualization')
     args = parser.parse_args()
     
+    # Ensure data directory exists
     data_path = os.path.abspath(args.data_dir)
     if not os.path.exists(data_path):
         print(f"Error: Data directory {data_path} not found")
         return
     
+    # Check if required folders exist
     broadleafs_path = os.path.join(data_path, 'Broadleafs')
     grasses_path = os.path.join(data_path, 'Grasses')
+    soil_path = os.path.join(data_path, 'Soil')
     
     if not os.path.exists(broadleafs_path) or not os.path.exists(grasses_path):
         print(f"Error: Broadleafs or Grasses folder not found in {data_path}")
         return
+        
+    if not os.path.exists(soil_path):
+        print(f"Warning: Soil folder not found in {data_path}. Only processing Broadleafs and Grasses.")
     
-    # Class mapping
-    class_names = {0: 'Broadleaf', 1: 'Grass'}
+    # Class mapping with three classes
+    class_names = {0: 'Broadleaf', 1: 'Grass', 2: 'Soil'}
     
     # Create datasets
     print("Creating training and validation datasets...")
@@ -99,12 +105,15 @@ def main():
     print(f"Training dataset size: {len(train_ds)} samples")
     print(f"Validation dataset size: {len(val_ds)} samples")
     
+    # Create data loaders
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size)
     
+    # Visualize class distribution
     print("\nAnalyzing class distribution...")
     visualize_class_distribution(train_ds, class_names)
     
+    # Display a batch of training images
     print("\nVisualizing a batch of training images...")
     imgs, labels = next(iter(train_loader))
     show_batch(imgs, labels, class_names)

@@ -1,5 +1,5 @@
 """
-Dataset loader for 2-class classification (grass vs broadleaf).
+Dataset loader for 3-class classification (grass vs broadleaf vs soil).
 """
 import os
 import random
@@ -25,7 +25,7 @@ class WeedDataset(Dataset):
     def __init__(self, root_dir, split='train', img_size=224, val_split=0.2, seed=42):
         """
         Args:
-            root_dir: Path to the data directory containing Broadleafs and Grasses folders
+            root_dir: Path to the data directory containing Broadleafs, Grasses, and Soil folders
             split: 'train' or 'val' to specify which split to use
             img_size: Size to resize the images to
             val_split: Fraction of data to use for validation
@@ -33,10 +33,11 @@ class WeedDataset(Dataset):
         """
         self.img_size = img_size
         
-        # Expected class folders
+        # Expected class folders - Updated to include Soil
         self.class_mapping = {
             'Broadleafs': 0,
-            'Grasses': 1
+            'Grasses': 1,
+            'Soil': 2
         }
         
         # Collect all image paths and labels by class
