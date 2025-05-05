@@ -21,6 +21,7 @@ from datetime import datetime
 # Configure the serial connection
 ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=2)
 
+
 # Ensure the serial port is open
 if ser.is_open:
     print("Serial port is already open")
@@ -54,7 +55,8 @@ def parse_response(response):
         
         return latitude, longitude, time_received
     except (IndexError, ValueError) as e:
-        print("Error parsing response:", e)
+        #print("Error parsing response:", e)
+        print(f"[CONSOLE] {response}")
         return None, None, None
 
 class Classification:
@@ -150,17 +152,22 @@ def draw_classification_results(request: CompletedRequest, results: List[Classif
             timestamp_seconds_prev = timestamp_seconds
             # Read the response (adjust the number of bytes based on >
             response = ser.readline()  # Read a line from the serial
-            print("Response:", response.decode('utf-8').strip())
+            #print("Response:", response.decode('utf-8').strip())
             if len(response) > 2:
                 # Parse the response
-                lat, lon, timestamp = parse_response(response)
-                if lat is not None and lon is not None:
-                    print(f"Latitude: {lat}, Longitude: {lon}, Time: {timestamp}")
+                try:
+                    lat, lon, timestamp = parse_response(response)
+                    if lat is not None and lon is not None:
+                        #print(f"Latitude: {lat}, Longitude: {lon}, Time: {timestamp}")
+                        formatted_time = timestamp.strftime("%H:%M:%S")
+                        print(f"[{formatted_time}] Latitude: {lat} Longitude: {lon} Class: {label}")
+                except Exception as e:
+                    print(f"[SYS] {response}")
 
 
 
         # Draw GPS Coordinate at the bottom
-        text = f"Lat:{lat:.6f} Lon: {lon:.6f} Time:{timestamp}"
+        text = f"Lat:{lat} Lon: {lon} Time:{timestamp}"
         # Calculate text size and position
         (text_width, text_height), baseline = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, font_scale, font_thickness)
         text_x = text_left + 5
