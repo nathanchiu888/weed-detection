@@ -20,11 +20,16 @@ python model_development/converter_scripts/mct_convert.py --model-path output/ru
 
 4. Convert model using imxconv-pt
 ```bash
-imxconv-pt -i model_development/optimized_models_mct/mct_quantized_model.onnx -o model_development/optimized_models_mct/output
+imxconv-pt -i model_development/optimized_models_mct/mct_quantized_model.onnx -o model_development/optimized_models_mct/output --overwrite-output
 ```
 Copy the converted zip file to raspberry pi
 
 5. On Raspberry pi run
 ```
-imx500-package -i output_rpi/packerOut.zip -o output_rpi
+imx500-package -i packerOut.zip -o .
+```
+
+6. Run on Raspberry Pi
+```
+python imx500_classification_demo_ucd.py --model weeed.rpk --softmax
 ```

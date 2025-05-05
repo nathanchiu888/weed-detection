@@ -1,0 +1,2830 @@
+name: "Sony"
+layer {
+  name: "Placeholder: Placeholder.input.uid1"
+  type: "Placeholder"
+  
+  top: "Placeholder.input.uid1:0"
+    scale_param {
+    "InputShapes": ""
+    "OutputShape": "3x224x224"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "151.00KB"
+    "ScheduleId": "106"
+
+  }
+
+}
+layer {
+  name: "Pad: /features_0_0_bn/layer/Conv_pad_to1d_0"
+  type: "Pad"
+  bottom: "Placeholder.input.uid1:0"
+  top: "/features_0_0_bn/layer/Conv_pad_to1d_0:0"
+    scale_param {
+    "InputShapes": "3x224x224"
+    "OutputShape": "3x226x224"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "HasScratch": "true"
+    
+    "RuntimeMemory": "148.31KB"
+    "ScheduleId": "107"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-1-/features_0_0_bn/layer/Conv_pad_to1d_0"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pad_to1d_0:0"
+  top: "transform-1-/features_0_0_bn/layer/Conv_pad_to1d_0:0"
+    scale_param {
+    "InputShapes": "3x226x224"
+    "OutputShape": "3x226x224"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "168.00KB"
+    "ScheduleId": "108"
+
+  }
+
+}
+layer {
+  name: "Pad: /features_0_0_bn/layer/Conv_pad_to1d_1"
+  type: "Pad"
+  bottom: "transform-1-/features_0_0_bn/layer/Conv_pad_to1d_0:0"
+  top: "/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+    scale_param {
+    "InputShapes": "3x226x224"
+    "OutputShape": "3x226x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "HasScratch": "true"
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "109"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-3-/features_0_0_bn/layer/Conv_pad_to1d_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "transform-3-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x226x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "110"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-5-/features_0_0_bn/layer/Conv_pad_to1d_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "transform-5-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x226x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "114"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-7-/features_0_0_bn/layer/Conv_pad_to1d_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "transform-7-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x226x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "118"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-9-/features_0_0_bn/layer/Conv_pad_to1d_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "transform-9-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x226x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "122"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(0;0)_dim_1"
+  type: "StrideSlice"
+  bottom: "transform-3-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(0;0)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "111"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(0;1)_dim_1"
+  type: "StrideSlice"
+  bottom: "transform-5-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(0;1)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "115"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(1;0)_dim_1"
+  type: "StrideSlice"
+  bottom: "transform-7-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(1;0)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "119"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(1;1)_dim_1"
+  type: "StrideSlice"
+  bottom: "transform-9-/features_0_0_bn/layer/Conv_pad_to1d_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(1;1)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x226x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "123"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-2-/features_0_0_bn/layer/Conv_pf(0;0)_dim_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pf(0;0)_dim_1:0"
+  top: "transform-2-/features_0_0_bn/layer/Conv_pf(0;0)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "112"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-4-/features_0_0_bn/layer/Conv_pf(0;1)_dim_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pf(0;1)_dim_1:0"
+  top: "transform-4-/features_0_0_bn/layer/Conv_pf(0;1)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "116"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-6-/features_0_0_bn/layer/Conv_pf(1;0)_dim_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pf(1;0)_dim_1:0"
+  top: "transform-6-/features_0_0_bn/layer/Conv_pf(1;0)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "120"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-8-/features_0_0_bn/layer/Conv_pf(1;1)_dim_1"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_pf(1;1)_dim_1:0"
+  top: "transform-8-/features_0_0_bn/layer/Conv_pf(1;1)_dim_1:0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x226"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "84.75KB"
+    "ScheduleId": "124"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(0;0)"
+  type: "StrideSlice"
+  bottom: "transform-2-/features_0_0_bn/layer/Conv_pf(0;0)_dim_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(0;0):0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "42.38KB"
+    "ScheduleId": "113"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(0;1)"
+  type: "StrideSlice"
+  bottom: "transform-4-/features_0_0_bn/layer/Conv_pf(0;1)_dim_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(0;1):0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "42.38KB"
+    "ScheduleId": "117"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(1;0)"
+  type: "StrideSlice"
+  bottom: "transform-6-/features_0_0_bn/layer/Conv_pf(1;0)_dim_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(1;0):0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "42.38KB"
+    "ScheduleId": "121"
+
+  }
+
+}
+layer {
+  name: "StrideSlice: /features_0_0_bn/layer/Conv_pf(1;1)"
+  type: "StrideSlice"
+  bottom: "transform-8-/features_0_0_bn/layer/Conv_pf(1;1)_dim_1:0"
+  top: "/features_0_0_bn/layer/Conv_pf(1;1):0"
+    scale_param {
+    "InputShapes": "3x113x226"
+    "OutputShape": "3x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "42.38KB"
+    "ScheduleId": "125"
+
+  }
+
+}
+layer {
+  name: "Concat: /features_0_0_bn/layer/Conv_concat"
+  type: "Concat"
+  bottom: "/features_0_0_bn/layer/Conv_pf(0;1):0"
+  bottom: "/features_0_0_bn/layer/Conv_pf(1;0):0"
+  bottom: "/features_0_0_bn/layer/Conv_pf(0;0):0"
+  bottom: "/features_0_0_bn/layer/Conv_pf(1;1):0"
+  top: "/features_0_0_bn/layer/Conv_concat:0"
+    scale_param {
+    "InputShapes": "3x113x113, 3x113x113, 3x113x113, 3x113x113"
+    "OutputShape": "12x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "126"
+
+  }
+
+}
+layer {
+  name: "Transform: transform-0-/features_0_0_bn/layer/Conv_concat"
+  type: "Transform"
+  bottom: "/features_0_0_bn/layer/Conv_concat:0"
+  top: "transform-0-/features_0_0_bn/layer/Conv_concat:0"
+    scale_param {
+    "InputShapes": "12x113x113"
+    "OutputShape": "12x113x113"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "169.50KB"
+    "ScheduleId": "127"
+
+  }
+
+}
+layer {
+  name: "Conv2D: /features_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "transform-0-/features_0_0_bn/layer/Conv_concat:0"
+  top: "/features_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "12x113x113, 32x12x2x2, 32"
+    "OutputShape": "32x112x112"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_0_0_bn/WeightsSymmetricQuantizer_pf:0"
+    "ConstInputs": "Variable.features_0_0_bn.layer.bias.uid2:0"
+    "RuntimeMemory": "392.00KB"
+    "ScheduleId": "128"
+
+  }
+  blobs {
+    shape {
+      dim: 32
+      dim: 12
+      dim: 2
+      dim: 2
+    }
+  }
+  blobs {
+    shape {
+      dim: 32
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_0_2/Clip:0"
+  top: "/features_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x112x112"
+    "OutputShape": "32x112x112"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_0_0_bn/WeightsSymmetricQuantizer_pf:0"
+    "ConstInputs": "Variable.features_0_0_bn.layer.bias.uid2:0"
+    "RuntimeMemory": "392.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_1_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_0_2/Clip:0"
+  top: "/features_1_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x112x112, 32x1x3x3, 32"
+    "OutputShape": "32x112x112"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_1_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_1_conv_0_0_bn.layer.bias.uid3:0"
+    "RuntimeMemory": "392.00KB"
+    "ScheduleId": "129"
+
+  }
+  blobs {
+    shape {
+      dim: 32
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 32
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_1_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_1_conv_0_2/Clip:0"
+  top: "/features_1_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x112x112"
+    "OutputShape": "32x112x112"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_1_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_1_conv_0_0_bn.layer.bias.uid3:0"
+    "RuntimeMemory": "392.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_1_conv_1_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_1_conv_0_2/Clip:0"
+  top: "/features_1_conv_1_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "32x112x112, 16x32x1x1, 16"
+    "OutputShape": "16x112x112"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_1_conv_1_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_1_conv_1_bn.layer.bias.uid4:0"
+    "RuntimeMemory": "224.00KB"
+    "ScheduleId": "130"
+
+  }
+  blobs {
+    shape {
+      dim: 16
+      dim: 32
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 16
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_2_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_1_conv_1_bn/layer/Conv:0"
+  top: "/features_2_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "16x112x112, 96x16x1x1, 96"
+    "OutputShape": "96x112x112"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_2_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_2_conv_0_0_bn.layer.bias.uid5:0"
+    "RuntimeMemory": "1.15MB"
+    "ScheduleId": "131"
+
+  }
+  blobs {
+    shape {
+      dim: 96
+      dim: 16
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 96
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_2_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_2_conv_0_2/Clip:0"
+  top: "/features_2_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x112x112"
+    "OutputShape": "96x112x112"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_2_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_2_conv_0_0_bn.layer.bias.uid5:0"
+    "RuntimeMemory": "1.15MB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_2_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_2_conv_0_2/Clip:0"
+  top: "/features_2_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x112x112, 96x1x3x3, 96"
+    "OutputShape": "96x56x56"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_2_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_2_conv_1_0_bn.layer.bias.uid6:0"
+    "RuntimeMemory": "294.00KB"
+    "ScheduleId": "132"
+
+  }
+  blobs {
+    shape {
+      dim: 96
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 96
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_2_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_2_conv_1_2/Clip:0"
+  top: "/features_2_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x56x56"
+    "OutputShape": "96x56x56"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_2_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_2_conv_1_0_bn.layer.bias.uid6:0"
+    "RuntimeMemory": "294.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_2_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_2_conv_1_2/Clip:0"
+  top: "/features_2_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "96x56x56, 24x96x1x1, 24"
+    "OutputShape": "24x56x56"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_2_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_2_conv_2_bn.layer.bias.uid7:0"
+    "RuntimeMemory": "98.00KB"
+    "ScheduleId": "133"
+
+  }
+  blobs {
+    shape {
+      dim: 24
+      dim: 96
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 24
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_3_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_2_conv_2_bn/layer/Conv:0"
+  top: "/features_3_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "24x56x56, 144x24x1x1, 144"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_3_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_0_0_bn.layer.bias.uid8:0"
+    "RuntimeMemory": "490.00KB"
+    "ScheduleId": "134"
+
+  }
+  blobs {
+    shape {
+      dim: 144
+      dim: 24
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 144
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_3_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_3_conv_0_2/Clip:0"
+  top: "/features_3_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x56x56"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_3_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_0_0_bn.layer.bias.uid8:0"
+    "RuntimeMemory": "490.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_3_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_3_conv_0_2/Clip:0"
+  top: "/features_3_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x56x56, 144x1x3x3, 144"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_3_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_1_0_bn.layer.bias.uid9:0"
+    "RuntimeMemory": "490.00KB"
+    "ScheduleId": "135"
+
+  }
+  blobs {
+    shape {
+      dim: 144
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 144
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_3_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_3_conv_1_2/Clip:0"
+  top: "/features_3_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x56x56"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_3_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_1_0_bn.layer.bias.uid9:0"
+    "RuntimeMemory": "490.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_3_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_2_conv_2_bn/layer/Conv:0"
+  bottom: "/features_3_conv_1_2/Clip:0"
+  top: "/Add:0"
+    scale_param {
+    "InputShapes": "144x56x56, 24x144x1x1, 24"
+    "OutputShape": "24x56x56"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_3_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_2_bn.layer.bias.uid10:0"
+    "RuntimeMemory": "98.00KB"
+    "ScheduleId": "136"
+
+  }
+  blobs {
+    shape {
+      dim: 24
+      dim: 144
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 24
+    }
+  }
+}
+layer {
+  name: "Add: /Add"
+  type: "Add"
+  bottom: "/Add:0"
+  top: "/Add:0"
+    scale_param {
+    "InputShapes": "24x56x56, 24x56x56"
+    "OutputShape": "24x56x56"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_3_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_3_conv_2_bn.layer.bias.uid10:0"
+    "RuntimeMemory": "98.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_4_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add:0"
+  top: "/features_4_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "24x56x56, 144x24x1x1, 144"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_4_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_4_conv_0_0_bn.layer.bias.uid11:0"
+    "RuntimeMemory": "490.00KB"
+    "ScheduleId": "137"
+
+  }
+  blobs {
+    shape {
+      dim: 144
+      dim: 24
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 144
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_4_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_4_conv_0_2/Clip:0"
+  top: "/features_4_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x56x56"
+    "OutputShape": "144x56x56"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_4_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_4_conv_0_0_bn.layer.bias.uid11:0"
+    "RuntimeMemory": "490.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_4_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_4_conv_0_2/Clip:0"
+  top: "/features_4_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x56x56, 144x1x3x3, 144"
+    "OutputShape": "144x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_4_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_4_conv_1_0_bn.layer.bias.uid12:0"
+    "RuntimeMemory": "122.50KB"
+    "ScheduleId": "138"
+
+  }
+  blobs {
+    shape {
+      dim: 144
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 144
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_4_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_4_conv_1_2/Clip:0"
+  top: "/features_4_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "144x28x28"
+    "OutputShape": "144x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_4_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_4_conv_1_0_bn.layer.bias.uid12:0"
+    "RuntimeMemory": "122.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_4_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_4_conv_1_2/Clip:0"
+  top: "/features_4_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "144x28x28, 32x144x1x1, 32"
+    "OutputShape": "32x28x28"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_4_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_4_conv_2_bn.layer.bias.uid13:0"
+    "RuntimeMemory": "24.50KB"
+    "ScheduleId": "139"
+
+  }
+  blobs {
+    shape {
+      dim: 32
+      dim: 144
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 32
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_5_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_4_conv_2_bn/layer/Conv:0"
+  top: "/features_5_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x28x28, 192x32x1x1, 192"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_5_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_0_0_bn.layer.bias.uid14:0"
+    "RuntimeMemory": "147.00KB"
+    "ScheduleId": "140"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 32
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_5_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_5_conv_0_2/Clip:0"
+  top: "/features_5_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_5_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_0_0_bn.layer.bias.uid14:0"
+    "RuntimeMemory": "147.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_5_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_5_conv_0_2/Clip:0"
+  top: "/features_5_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28, 192x1x3x3, 192"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_5_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_1_0_bn.layer.bias.uid15:0"
+    "RuntimeMemory": "147.00KB"
+    "ScheduleId": "141"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_5_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_5_conv_1_2/Clip:0"
+  top: "/features_5_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_5_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_1_0_bn.layer.bias.uid15:0"
+    "RuntimeMemory": "147.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_5_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_5_conv_1_2/Clip:0"
+  bottom: "/features_4_conv_2_bn/layer/Conv:0"
+  top: "/Add_1:0"
+    scale_param {
+    "InputShapes": "192x28x28, 32x192x1x1, 32"
+    "OutputShape": "32x28x28"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_5_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_2_bn.layer.bias.uid16:0"
+    "RuntimeMemory": "24.50KB"
+    "ScheduleId": "142"
+
+  }
+  blobs {
+    shape {
+      dim: 32
+      dim: 192
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 32
+    }
+  }
+}
+layer {
+  name: "Add: /Add_1"
+  type: "Add"
+  bottom: "/Add_1:0"
+  top: "/Add_1:0"
+    scale_param {
+    "InputShapes": "32x28x28, 32x28x28"
+    "OutputShape": "32x28x28"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_5_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_5_conv_2_bn.layer.bias.uid16:0"
+    "RuntimeMemory": "24.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_6_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_1:0"
+  top: "/features_6_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x28x28, 192x32x1x1, 192"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_6_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_0_0_bn.layer.bias.uid17:0"
+    "RuntimeMemory": "147.00KB"
+    "ScheduleId": "143"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 32
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_6_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_6_conv_0_2/Clip:0"
+  top: "/features_6_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_6_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_0_0_bn.layer.bias.uid17:0"
+    "RuntimeMemory": "147.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_6_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_6_conv_0_2/Clip:0"
+  top: "/features_6_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28, 192x1x3x3, 192"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_6_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_1_0_bn.layer.bias.uid18:0"
+    "RuntimeMemory": "147.00KB"
+    "ScheduleId": "144"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_6_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_6_conv_1_2/Clip:0"
+  top: "/features_6_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_6_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_1_0_bn.layer.bias.uid18:0"
+    "RuntimeMemory": "147.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_6_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_6_conv_1_2/Clip:0"
+  bottom: "/Add_1:0"
+  top: "/Add_2:0"
+    scale_param {
+    "InputShapes": "192x28x28, 32x192x1x1, 32"
+    "OutputShape": "32x28x28"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_6_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_2_bn.layer.bias.uid19:0"
+    "RuntimeMemory": "24.50KB"
+    "ScheduleId": "145"
+
+  }
+  blobs {
+    shape {
+      dim: 32
+      dim: 192
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 32
+    }
+  }
+}
+layer {
+  name: "Add: /Add_2"
+  type: "Add"
+  bottom: "/Add_2:0"
+  top: "/Add_2:0"
+    scale_param {
+    "InputShapes": "32x28x28, 32x28x28"
+    "OutputShape": "32x28x28"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_6_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_6_conv_2_bn.layer.bias.uid19:0"
+    "RuntimeMemory": "24.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_7_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_2:0"
+  top: "/features_7_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "32x28x28, 192x32x1x1, 192"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_7_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_7_conv_0_0_bn.layer.bias.uid20:0"
+    "RuntimeMemory": "147.00KB"
+    "ScheduleId": "146"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 32
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_7_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_7_conv_0_2/Clip:0"
+  top: "/features_7_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28"
+    "OutputShape": "192x28x28"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_7_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_7_conv_0_0_bn.layer.bias.uid20:0"
+    "RuntimeMemory": "147.00KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_7_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_7_conv_0_2/Clip:0"
+  top: "/features_7_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x28x28, 192x1x3x3, 192"
+    "OutputShape": "192x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_7_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_7_conv_1_0_bn.layer.bias.uid21:0"
+    "RuntimeMemory": "36.75KB"
+    "ScheduleId": "147"
+
+  }
+  blobs {
+    shape {
+      dim: 192
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 192
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_7_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_7_conv_1_2/Clip:0"
+  top: "/features_7_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "192x14x14"
+    "OutputShape": "192x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_7_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_7_conv_1_0_bn.layer.bias.uid21:0"
+    "RuntimeMemory": "36.75KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_7_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_7_conv_1_2/Clip:0"
+  top: "/features_7_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "192x14x14, 64x192x1x1, 64"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_7_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_7_conv_2_bn.layer.bias.uid22:0"
+    "RuntimeMemory": "12.25KB"
+    "ScheduleId": "148"
+
+  }
+  blobs {
+    shape {
+      dim: 64
+      dim: 192
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 64
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_8_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_7_conv_2_bn/layer/Conv:0"
+  top: "/features_8_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "64x14x14, 384x64x1x1, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_8_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_0_0_bn.layer.bias.uid23:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "149"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 64
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_8_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_8_conv_0_2/Clip:0"
+  top: "/features_8_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_8_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_0_0_bn.layer.bias.uid23:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_8_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_8_conv_0_2/Clip:0"
+  top: "/features_8_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14, 384x1x3x3, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_8_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_1_0_bn.layer.bias.uid24:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "150"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_8_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_8_conv_1_2/Clip:0"
+  top: "/features_8_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_8_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_1_0_bn.layer.bias.uid24:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_8_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_8_conv_1_2/Clip:0"
+  bottom: "/features_7_conv_2_bn/layer/Conv:0"
+  top: "/Add_3:0"
+    scale_param {
+    "InputShapes": "384x14x14, 64x384x1x1, 64"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_8_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_2_bn.layer.bias.uid25:0"
+    "RuntimeMemory": "12.25KB"
+    "ScheduleId": "151"
+
+  }
+  blobs {
+    shape {
+      dim: 64
+      dim: 384
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 64
+    }
+  }
+}
+layer {
+  name: "Add: /Add_3"
+  type: "Add"
+  bottom: "/Add_3:0"
+  top: "/Add_3:0"
+    scale_param {
+    "InputShapes": "64x14x14, 64x14x14"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_8_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_8_conv_2_bn.layer.bias.uid25:0"
+    "RuntimeMemory": "12.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_9_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_3:0"
+  top: "/features_9_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "64x14x14, 384x64x1x1, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_9_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_0_0_bn.layer.bias.uid26:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "152"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 64
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_9_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_9_conv_0_2/Clip:0"
+  top: "/features_9_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_9_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_0_0_bn.layer.bias.uid26:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_9_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_9_conv_0_2/Clip:0"
+  top: "/features_9_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14, 384x1x3x3, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_9_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_1_0_bn.layer.bias.uid27:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "153"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_9_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_9_conv_1_2/Clip:0"
+  top: "/features_9_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_9_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_1_0_bn.layer.bias.uid27:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_9_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_9_conv_1_2/Clip:0"
+  bottom: "/Add_3:0"
+  top: "/Add_4:0"
+    scale_param {
+    "InputShapes": "384x14x14, 64x384x1x1, 64"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_9_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_2_bn.layer.bias.uid28:0"
+    "RuntimeMemory": "12.25KB"
+    "ScheduleId": "154"
+
+  }
+  blobs {
+    shape {
+      dim: 64
+      dim: 384
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 64
+    }
+  }
+}
+layer {
+  name: "Add: /Add_4"
+  type: "Add"
+  bottom: "/Add_4:0"
+  top: "/Add_4:0"
+    scale_param {
+    "InputShapes": "64x14x14, 64x14x14"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_9_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_9_conv_2_bn.layer.bias.uid28:0"
+    "RuntimeMemory": "12.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_10_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_4:0"
+  top: "/features_10_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "64x14x14, 384x64x1x1, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_10_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_0_0_bn.layer.bias.uid29:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "155"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 64
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_10_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_10_conv_0_2/Clip:0"
+  top: "/features_10_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_10_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_0_0_bn.layer.bias.uid29:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_10_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_10_conv_0_2/Clip:0"
+  top: "/features_10_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14, 384x1x3x3, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_10_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_1_0_bn.layer.bias.uid30:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "156"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_10_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_10_conv_1_2/Clip:0"
+  top: "/features_10_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_10_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_1_0_bn.layer.bias.uid30:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_10_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_10_conv_1_2/Clip:0"
+  bottom: "/Add_4:0"
+  top: "/Add_5:0"
+    scale_param {
+    "InputShapes": "384x14x14, 64x384x1x1, 64"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_10_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_2_bn.layer.bias.uid31:0"
+    "RuntimeMemory": "12.25KB"
+    "ScheduleId": "157"
+
+  }
+  blobs {
+    shape {
+      dim: 64
+      dim: 384
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 64
+    }
+  }
+}
+layer {
+  name: "Add: /Add_5"
+  type: "Add"
+  bottom: "/Add_5:0"
+  top: "/Add_5:0"
+    scale_param {
+    "InputShapes": "64x14x14, 64x14x14"
+    "OutputShape": "64x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_10_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_10_conv_2_bn.layer.bias.uid31:0"
+    "RuntimeMemory": "12.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_11_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_5:0"
+  top: "/features_11_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "64x14x14, 384x64x1x1, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_11_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_11_conv_0_0_bn.layer.bias.uid32:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "158"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 64
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_11_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_11_conv_0_2/Clip:0"
+  top: "/features_11_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_11_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_11_conv_0_0_bn.layer.bias.uid32:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_11_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_11_conv_0_2/Clip:0"
+  top: "/features_11_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14, 384x1x3x3, 384"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_11_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_11_conv_1_0_bn.layer.bias.uid33:0"
+    "RuntimeMemory": "73.50KB"
+    "ScheduleId": "159"
+
+  }
+  blobs {
+    shape {
+      dim: 384
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 384
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_11_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_11_conv_1_2/Clip:0"
+  top: "/features_11_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "384x14x14"
+    "OutputShape": "384x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_11_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_11_conv_1_0_bn.layer.bias.uid33:0"
+    "RuntimeMemory": "73.50KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_11_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_11_conv_1_2/Clip:0"
+  top: "/features_11_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "384x14x14, 96x384x1x1, 96"
+    "OutputShape": "96x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_11_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_11_conv_2_bn.layer.bias.uid34:0"
+    "RuntimeMemory": "18.38KB"
+    "ScheduleId": "160"
+
+  }
+  blobs {
+    shape {
+      dim: 96
+      dim: 384
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 96
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_12_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_11_conv_2_bn/layer/Conv:0"
+  top: "/features_12_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x14x14, 576x96x1x1, 576"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_12_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_0_0_bn.layer.bias.uid35:0"
+    "RuntimeMemory": "110.25KB"
+    "ScheduleId": "161"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 96
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_12_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_12_conv_0_2/Clip:0"
+  top: "/features_12_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 1.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_12_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_0_0_bn.layer.bias.uid35:0"
+    "RuntimeMemory": "110.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_12_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_12_conv_0_2/Clip:0"
+  top: "/features_12_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14, 576x1x3x3, 576"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_12_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_1_0_bn.layer.bias.uid36:0"
+    "RuntimeMemory": "110.25KB"
+    "ScheduleId": "162"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_12_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_12_conv_1_2/Clip:0"
+  top: "/features_12_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_12_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_1_0_bn.layer.bias.uid36:0"
+    "RuntimeMemory": "110.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_12_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_12_conv_1_2/Clip:0"
+  bottom: "/features_11_conv_2_bn/layer/Conv:0"
+  top: "/Add_6:0"
+    scale_param {
+    "InputShapes": "576x14x14, 96x576x1x1, 96"
+    "OutputShape": "96x14x14"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_12_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_2_bn.layer.bias.uid37:0"
+    "RuntimeMemory": "18.38KB"
+    "ScheduleId": "163"
+
+  }
+  blobs {
+    shape {
+      dim: 96
+      dim: 576
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 96
+    }
+  }
+}
+layer {
+  name: "Add: /Add_6"
+  type: "Add"
+  bottom: "/Add_6:0"
+  top: "/Add_6:0"
+    scale_param {
+    "InputShapes": "96x14x14, 96x14x14"
+    "OutputShape": "96x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_12_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_12_conv_2_bn.layer.bias.uid37:0"
+    "RuntimeMemory": "18.38KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_13_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_6:0"
+  top: "/features_13_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x14x14, 576x96x1x1, 576"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_13_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_0_0_bn.layer.bias.uid38:0"
+    "RuntimeMemory": "110.25KB"
+    "ScheduleId": "164"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 96
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_13_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_13_conv_0_2/Clip:0"
+  top: "/features_13_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_13_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_0_0_bn.layer.bias.uid38:0"
+    "RuntimeMemory": "110.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_13_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_13_conv_0_2/Clip:0"
+  top: "/features_13_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14, 576x1x3x3, 576"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_13_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_1_0_bn.layer.bias.uid39:0"
+    "RuntimeMemory": "110.25KB"
+    "ScheduleId": "165"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_13_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_13_conv_1_2/Clip:0"
+  top: "/features_13_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_13_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_1_0_bn.layer.bias.uid39:0"
+    "RuntimeMemory": "110.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_13_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_13_conv_1_2/Clip:0"
+  bottom: "/Add_6:0"
+  top: "/Add_7:0"
+    scale_param {
+    "InputShapes": "576x14x14, 96x576x1x1, 96"
+    "OutputShape": "96x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_13_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_2_bn.layer.bias.uid40:0"
+    "RuntimeMemory": "18.38KB"
+    "ScheduleId": "166"
+
+  }
+  blobs {
+    shape {
+      dim: 96
+      dim: 576
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 96
+    }
+  }
+}
+layer {
+  name: "Add: /Add_7"
+  type: "Add"
+  bottom: "/Add_7:0"
+  top: "/Add_7:0"
+    scale_param {
+    "InputShapes": "96x14x14, 96x14x14"
+    "OutputShape": "96x14x14"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_13_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_13_conv_2_bn.layer.bias.uid40:0"
+    "RuntimeMemory": "18.38KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_14_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_7:0"
+  top: "/features_14_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "96x14x14, 576x96x1x1, 576"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_14_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_14_conv_0_0_bn.layer.bias.uid41:0"
+    "RuntimeMemory": "110.25KB"
+    "ScheduleId": "167"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 96
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_14_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_14_conv_0_2/Clip:0"
+  top: "/features_14_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14"
+    "OutputShape": "576x14x14"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_14_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_14_conv_0_0_bn.layer.bias.uid41:0"
+    "RuntimeMemory": "110.25KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_14_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_14_conv_0_2/Clip:0"
+  top: "/features_14_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x14x14, 576x1x3x3, 576"
+    "OutputShape": "576x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_14_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_14_conv_1_0_bn.layer.bias.uid42:0"
+    "RuntimeMemory": "27.56KB"
+    "ScheduleId": "168"
+
+  }
+  blobs {
+    shape {
+      dim: 576
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 576
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_14_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_14_conv_1_2/Clip:0"
+  top: "/features_14_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "576x7x7"
+    "OutputShape": "576x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_14_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_14_conv_1_0_bn.layer.bias.uid42:0"
+    "RuntimeMemory": "27.56KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_14_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_14_conv_1_2/Clip:0"
+  top: "/features_14_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "576x7x7, 160x576x1x1, 160"
+    "OutputShape": "160x7x7"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_14_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_14_conv_2_bn.layer.bias.uid43:0"
+    "RuntimeMemory": "7.66KB"
+    "ScheduleId": "169"
+
+  }
+  blobs {
+    shape {
+      dim: 160
+      dim: 576
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 160
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_15_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_14_conv_2_bn/layer/Conv:0"
+  top: "/features_15_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "160x7x7, 960x160x1x1, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_15_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_0_0_bn.layer.bias.uid44:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "170"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 160
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_15_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_15_conv_0_2/Clip:0"
+  top: "/features_15_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_15_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_0_0_bn.layer.bias.uid44:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_15_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_15_conv_0_2/Clip:0"
+  top: "/features_15_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7, 960x1x3x3, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_15_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_1_0_bn.layer.bias.uid45:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "171"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_15_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_15_conv_1_2/Clip:0"
+  top: "/features_15_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_15_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_1_0_bn.layer.bias.uid45:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_15_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_15_conv_1_2/Clip:0"
+  bottom: "/features_14_conv_2_bn/layer/Conv:0"
+  top: "/Add_8:0"
+    scale_param {
+    "InputShapes": "960x7x7, 160x960x1x1, 160"
+    "OutputShape": "160x7x7"
+    "Quantize[mn,mx]": [-4.0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_15_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_2_bn.layer.bias.uid46:0"
+    "RuntimeMemory": "7.66KB"
+    "ScheduleId": "172"
+
+  }
+  blobs {
+    shape {
+      dim: 160
+      dim: 960
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 160
+    }
+  }
+}
+layer {
+  name: "Add: /Add_8"
+  type: "Add"
+  bottom: "/Add_8:0"
+  top: "/Add_8:0"
+    scale_param {
+    "InputShapes": "160x7x7, 160x7x7"
+    "OutputShape": "160x7x7"
+    "Quantize[mn,mx]": [-8.0, 8.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_15_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_15_conv_2_bn.layer.bias.uid46:0"
+    "RuntimeMemory": "7.66KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_16_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_8:0"
+  top: "/features_16_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "160x7x7, 960x160x1x1, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_16_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_0_0_bn.layer.bias.uid47:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "173"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 160
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_16_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_16_conv_0_2/Clip:0"
+  top: "/features_16_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_16_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_0_0_bn.layer.bias.uid47:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_16_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_16_conv_0_2/Clip:0"
+  top: "/features_16_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7, 960x1x3x3, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_16_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_1_0_bn.layer.bias.uid48:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "174"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_16_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_16_conv_1_2/Clip:0"
+  top: "/features_16_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_16_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_1_0_bn.layer.bias.uid48:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_16_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_16_conv_1_2/Clip:0"
+  bottom: "/Add_8:0"
+  top: "/Add_9:0"
+    scale_param {
+    "InputShapes": "960x7x7, 160x960x1x1, 160"
+    "OutputShape": "160x7x7"
+    "Quantize[mn,mx]": [-8.0, 8.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_16_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_2_bn.layer.bias.uid49:0"
+    "RuntimeMemory": "7.66KB"
+    "ScheduleId": "175"
+
+  }
+  blobs {
+    shape {
+      dim: 160
+      dim: 960
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 160
+    }
+  }
+}
+layer {
+  name: "Add: /Add_9"
+  type: "Add"
+  bottom: "/Add_9:0"
+  top: "/Add_9:0"
+    scale_param {
+    "InputShapes": "160x7x7, 160x7x7"
+    "OutputShape": "160x7x7"
+    "Quantize[mn,mx]": [-16.0, 16.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_16_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_16_conv_2_bn.layer.bias.uid49:0"
+    "RuntimeMemory": "7.66KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_17_conv_0_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/Add_9:0"
+  top: "/features_17_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "160x7x7, 960x160x1x1, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_17_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_17_conv_0_0_bn.layer.bias.uid50:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "176"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 160
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_17_conv_0_2/Clip"
+  type: "ReluX"
+  bottom: "/features_17_conv_0_2/Clip:0"
+  top: "/features_17_conv_0_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_17_conv_0_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_17_conv_0_0_bn.layer.bias.uid50:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_17_conv_1_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_17_conv_0_2/Clip:0"
+  top: "/features_17_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7, 960x1x3x3, 960"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_17_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_17_conv_1_0_bn.layer.bias.uid51:0"
+    "RuntimeMemory": "45.94KB"
+    "ScheduleId": "177"
+
+  }
+  blobs {
+    shape {
+      dim: 960
+      dim: 1
+      dim: 3
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 960
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_17_conv_1_2/Clip"
+  type: "ReluX"
+  bottom: "/features_17_conv_1_2/Clip:0"
+  top: "/features_17_conv_1_2/Clip:0"
+    scale_param {
+    "InputShapes": "960x7x7"
+    "OutputShape": "960x7x7"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_17_conv_1_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_17_conv_1_0_bn.layer.bias.uid51:0"
+    "RuntimeMemory": "45.94KB"
+    
+  }
+
+}
+layer {
+  name: "Conv2D: /features_17_conv_2_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_17_conv_1_2/Clip:0"
+  top: "/features_17_conv_2_bn/layer/Conv:0"
+    scale_param {
+    "InputShapes": "960x7x7, 320x960x1x1, 320"
+    "OutputShape": "320x7x7"
+    "Quantize[mn,mx]": [-2.0, 2.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_17_conv_2_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_17_conv_2_bn.layer.bias.uid52:0"
+    "RuntimeMemory": "15.31KB"
+    "ScheduleId": "178"
+
+  }
+  blobs {
+    shape {
+      dim: 320
+      dim: 960
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 320
+    }
+  }
+}
+layer {
+  name: "Conv2D: /features_18_0_bn/layer/Conv"
+  type: "Convolution"
+  bottom: "/features_17_conv_2_bn/layer/Conv:0"
+  top: "/features_18_2/Clip:0"
+    scale_param {
+    "InputShapes": "320x7x7, 1280x320x1x1, 1280"
+    "OutputShape": "1280x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 16
+    "ConstInputs": "/features_18_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_18_0_bn.layer.bias.uid53:0"
+    "RuntimeMemory": "61.25KB"
+    "ScheduleId": "179"
+
+  }
+  blobs {
+    shape {
+      dim: 1280
+      dim: 320
+      dim: 1
+      dim: 1
+    }
+  }
+  blobs {
+    shape {
+      dim: 1280
+    }
+  }
+}
+layer {
+  name: "ReluX: /features_18_2/Clip"
+  type: "ReluX"
+  bottom: "/features_18_2/Clip:0"
+  top: "/features_18_2/Clip:0"
+    scale_param {
+    "InputShapes": "1280x7x7"
+    "OutputShape": "1280x7x7"
+    "Quantize[mn,mx]": [0, 8.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/features_18_0_bn/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.features_18_0_bn.layer.bias.uid53:0"
+    "RuntimeMemory": "61.25KB"
+    
+  }
+
+}
+layer {
+  name: "ReduceMean: /GlobalAveragePool"
+  type: "ReduceMean"
+  bottom: "/features_18_2/Clip:0"
+  top: "/GlobalAveragePool:0"
+    scale_param {
+    "InputShapes": "1280x7x7"
+    "OutputShape": "1280x1x1"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "1.25KB"
+    "ScheduleId": "180"
+
+  }
+
+}
+layer {
+  name: "Reshape: /Flatten"
+  type: "Reshape"
+  bottom: "/GlobalAveragePool:0"
+  top: "/Flatten:0"
+    scale_param {
+    "InputShapes": "1280x1x1"
+    "OutputShape": "1280"
+    "Quantize[mn,mx]": [0, 4.0]
+    "QuantizeBits": 8
+    "HasScratch": "true"
+    
+    "RuntimeMemory": "1.25KB"
+    "ScheduleId": "181"
+
+  }
+
+}
+layer {
+  name: "MatMulBias: /classifier_1/layer/Gemm"
+  type: "MatMulBias"
+  bottom: "/Flatten:0"
+  top: "/classifier_1/layer/Gemm:0"
+    scale_param {
+    "InputShapes": "1280, 1280x3, 3"
+    "OutputShape": "3"
+    "Quantize[mn,mx]": [-32.0, 32.0]
+    "QuantizeBits": 8
+    "ConstInputs": "/classifier_1/WeightsSymmetricQuantizer:0"
+    "ConstInputs": "Variable.classifier_1.layer.bias.uid54:0"
+    "RuntimeMemory": "32B"
+    "ScheduleId": "182"
+
+  }
+  blobs {
+    shape {
+      dim: 1280
+      dim: 3
+    }
+  }
+  blobs {
+    shape {
+      dim: 3
+    }
+  }
+}
+layer {
+  name: "Transform: transform-10-/classifier_1/layer/Gemm"
+  type: "Transform"
+  bottom: "/classifier_1/layer/Gemm:0"
+  top: "transform-10-/classifier_1/layer/Gemm:0"
+    scale_param {
+    "InputShapes": "3"
+    "OutputShape": "3"
+    "Quantize[mn,mx]": [-32.0, 32.0]
+    "QuantizeBits": 8
+    
+    "RuntimeMemory": "32B"
+    "ScheduleId": "183"
+
+  }
+
+}
+layer {
+  name: "Output: Output.output.uid55"
+  type: "Output"
+  bottom: "transform-10-/classifier_1/layer/Gemm:0"
+  
+    scale_param {
+    "InputShapes": "3"
+    
+    
+    
+    "RuntimeMemory": "0B"
+    "ScheduleId": "184"
+
+  }
+
+}
+layer{
+  name: "mct_quantized_model"
+  type: "MemoryReport"
+  scale_param {
+   
+    RuntimeMemoryPhysicalSize: "1.60MB"
+    ModelMemoryPhysicalSize: "2.29MB"
+    ReservedMemory: "1.00KB"
+    MemoryUsage: "3.89MB"
+    TotalMemoryAvailableOnChip: "8.00MB"
+    MemoryUtilization: "49%"
+    FitInChip: "true"
+    InputPersistent: "true"
+    Hash: "mct_quantized_model"
+    InputPersistenceCost: "151.00KB"
+      
+   LargestLayer: "(F)/features_2_conv_0_0_bn/layer/Conv"
+  }
+}

@@ -6,3 +6,4 @@ notes.txt
 *\mobile-net-output
 .env/*
 output/*
+model_development/data/*
