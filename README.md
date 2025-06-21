@@ -198,7 +198,7 @@ imx500-package -i output_rpi/packerOut.zip -o output_rpi
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/nathanchiu888/weedtrackr.git
+git clone https://github.com/nathanchiu888/weed-detection.git
 ```
 
 2. Set up the Raspberry Pi environment:
